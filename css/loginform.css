@@ -1,0 +1,83 @@
+body{
+	background-image: url('../img/bg-dark.jpg') ;
+}
+span{
+	color:#FFFFDC;
+	text-align: center;
+	display:block;
+}
+#login{
+	width:20%;
+	padding:3em;
+	position:relative;
+	margin:0 auto;
+	min-width: 280px;
+}
+
+#form-title{
+	color:#FFFFDC;
+	text-align: center;
+}
+
+.inputfields{
+	width: 90%;
+	text-align: center;
+	margin: 0 auto;
+	padding: .5em;
+	border-radius: 0.5em;
+	background-color: #FFFFDC;
+	display: block;
+}
+
+#name{
+	margin-bottom: 7px;
+}
+
+#password{
+	margin-top: 7px;
+}
+
+.form-items{
+	border:none;
+}
+#submit
+{		
+	display:block;
+	margin:0 auto;
+	-moz-box-shadow: 1px 1px 0px 1px #1c1b18;
+	-webkit-box-shadow: 1px 1px 0px 1px #1c1b18;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #268e4e), color-stop(1, #3adb75));
+	background:-moz-linear-gradient(top, #268e4e 5%, #3adb75 100%);
+	background:-webkit-linear-gradient(top, #268e4e 5%, #3adb75 100%);
+	background:-o-linear-gradient(top, #268e4e 5%, #3adb75 100%);
+	background:-ms-linear-gradient(top, #268e4e 5%, #3adb75 100%);
+	background:linear-gradient(to bottom, #268e4e 5%, #3adb75 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#268e4e', endColorstr='#3adb75',GradientType=0);
+	background-color:#268e4e;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border:1px solid #333029;
+	cursor:pointer;
+	color:#0009;
+	padding:0.5em 1.5em;
+	font-weight: bold;
+	
+}
+
+#submit:hover,#submit:focus
+{		
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #3adb75), color-stop(1, #268e4e));
+	background:-moz-linear-gradient(top, #3adb75 5%, #268e4e 100%);
+	background:-webkit-linear-gradient(top, #3adb75 5%, #268e4e 100%);
+	background:-o-linear-gradient(top, #3adb75 5%, #268e4e 100%);
+	background:-ms-linear-gradient(top, #3adb75 5%, #268e4e 100%);
+	background:linear-gradient(to bottom, #3adb75 5%, #268e4e 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3adb75', endColorstr='#268e4e',GradientType=0);
+	background-color:#3adb75;
+}	
+
+#submit:active {
+	position:relative;
+	top:1px;
+}
