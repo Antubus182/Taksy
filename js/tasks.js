@@ -22,7 +22,7 @@ The code below handles clicking the checkboxes, rendering a subtask done
 */
 
 $('input:checkbox').click(function(){
-    var taskId=1;
+    var updateTaskId=1;
     if($(this).is(":checked")){
         $(this).parent().addClass("subdone");
         var taskData=true;
@@ -34,7 +34,7 @@ $('input:checkbox').click(function(){
     var clicker=$(this).parent().attr('id');
     $.post("updateProfile.php",
     {
-        taskId:taskId,
+        updateTask:updateTaskId,
         clicker:clicker,
         taskData:taskData
     },
@@ -67,6 +67,7 @@ $('button').click(function(){
     switch(m[1]){
         case "donetask":
         taskDone(m[3]);
+        $(this).parent().addClass("hidden");
         break;
         case "sub":
         addSub(m[3]);
@@ -89,22 +90,41 @@ $('button').click(function(){
 });
 
 
-function addProject($userId){
+function addProject(userId){
     console.log("function to call en projectadd");
 }
 
-function addTask($projectId){
+function addTask(projectId){
     console.log("function called to add a task");
 }
 
-function addSub($taskId){
+function addSub(taskId){
     console.log("function to add a subtask");
 }
 
-function taskDone($taskId){
+function taskDone(taskId){
     console.log("taskdone function called");
+    $.post("updateProfile.php",
+    {
+        updateTask:2,
+        idToUse:taskId
+    },
+    function(data,status){
+        console.log(data);
+        console.log(status);
+    });
 }
 
-function projectDone($projectId){
+function projectDone(projectId){
     console.log("Function called to render project complete");
+    $.post("updateProfile.php",
+    {
+        updateTask:3,
+        idToUse:projectId
+    },
+    function(data,status){
+        console.log(data);
+        console.log(status);
+    });
+
 }

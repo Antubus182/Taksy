@@ -61,10 +61,15 @@ function generatePage($projectData,$usr){
     $building.='<button type="button" id="taskadd'.$project["id"].'" class="success button float-right">+ Add Task</button></div><hr>';
     $building.='<div class="row small-up-1 medium-up-3 large-up-4" data-equalizer="section'.$project["id"].'" data-equalize-by-row="true">';
     foreach($project["tasks"] as $task){
-      if(!$task["done"]){
-        $building.='<div class="column"><div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
+      //if(!$task["done"]){
+        if($task["done"]){
+          $building.='<div class="column hidden"><div class="taskslip '.$task["color"].'">';
+        }
+        else{
+          $building.='<div class="column"><div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
+        }
+        //$building.='<div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
         $building.='<h5>'.$task["tname"].'</h5><ul>';
-        //foreach($task["subtasks"] as $subname=>$issubdone){
         foreach($task["subtasks"] as $subtask){
           if($subtask["done"]){
             $building.='<li id=subtask'.$subtask["id"].' class="subdone"><input type="checkbox" checked>'.$subtask["subname"].'</li>';
@@ -76,7 +81,6 @@ function generatePage($projectData,$usr){
         $building.='</ul><button type="button" id="sub'.$project["id"].'-'.$task["id"].'" class="success button">+ Add subtask</button>';
         $building.='<button type="button" id="donetask'.$project["id"].'-'.$task["id"].'" class="small alert button">Task completed</button>';
         $building.='</div></div>';
-      }
     }
     $building.='</div></div>';
     $projectlisting.=$building;

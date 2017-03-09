@@ -43,6 +43,10 @@
 	text-decoration: line-through;
 }
 
+.hidden{
+	display:none;
+}
+
 input[type="checkbox"]{
 	margin: 0 0.25em 0 0;
 }
