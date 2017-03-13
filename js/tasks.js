@@ -49,7 +49,7 @@ $('input:checkbox').click(function(){
 The code below desides what button was pressed to determine action
 */
 const regex = /(\w+)(\d+)-*(\d*)/g;
-
+var token="not back";
 $('button').click(function(){
     //console.log(this.id);
     var str=this.id;
@@ -66,8 +66,7 @@ $('button').click(function(){
     //console.log("id2 is: "+m[3]);
     switch(m[1]){
         case "donetask":
-        taskDone(m[3]);
-        $(this).parent().addClass("hidden");
+        taskDone(m[3],str);
         break;
         case "sub":
         addSub(m[3]);
@@ -102,7 +101,7 @@ function addSub(taskId){
     console.log("function to add a subtask");
 }
 
-function taskDone(taskId){
+function taskDone(taskId,str){
     console.log("taskdone function called");
     $.post("updateProfile.php",
     {
@@ -112,6 +111,9 @@ function taskDone(taskId){
     function(data,status){
         console.log(data);
         console.log(status);
+        if(status=="success"){
+            $('#'+str).parent().parent().addClass("hidden");
+        }
     });
 }
 

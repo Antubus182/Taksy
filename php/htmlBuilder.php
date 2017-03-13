@@ -6,7 +6,7 @@ function test($a){
 }
 
 function generatePage($projectData,$usr){
-	
+	$config=json_decode(file_get_contents("../config.json"));
   $startingHtml='<!doctype html>
                     <html class="no-js" lang="en">
                     <head>
@@ -26,7 +26,7 @@ function generatePage($projectData,$usr){
 		<div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
           <div class="row column">
             <br>
-            <img class="thumbnail" id="gebr" src="http://lorempixel.com/550/350/people">
+            <img class="thumbnail" id="gebr" src="http://loremflickr.com/225/175">
             <h5>Welcome '.$usr->name.'</h5>
             <p>'.$usr->about.'</p>
             <a type="button" href="logout.php" id="logout" class="alert button">Logout</a>
@@ -49,14 +49,14 @@ function generatePage($projectData,$usr){
 		  <div class="callout primary">
             <div class="row column">
               <h1>Welkom to Tasky Projectmanager</h1>
-              <p class="lead">This project is under development but should eventualy allow you to keep track of differtent tasks in different projects</p>
+              <p class="lead">'.$config->introtext.'</p>
             </div>
           </div>
 	';
 
 	$projectlisting='<hr><div id="projectContainers">';
   foreach($projectData as $project){
-    $building='<div class="callout alert"><div class="row column clearfix"><h1 id="p'.$project["id"].'" class="float-left">'.$project['name'].'</h1>';
+    $building='<div id="project'.$project["id"].'" class="callout alert"><div class="row column clearfix"><h1 id="p'.$project["id"].'" class="float-left">'.$project['name'].'</h1>';
     $building.='<button type="button" id="projectdone'.$project["id"].'" class="pfin info button float-right">Project Finished</button>';
     $building.='<button type="button" id="taskadd'.$project["id"].'" class="success button float-right">+ Add Task</button></div><hr>';
     $building.='<div class="row small-up-1 medium-up-3 large-up-4" data-equalizer="section'.$project["id"].'" data-equalize-by-row="true">';
@@ -78,7 +78,7 @@ function generatePage($projectData,$usr){
             $building.='<li id=subtask'.$subtask["id"].'><input type="checkbox">'.$subtask["subname"].'</li>';
           }
         }
-        $building.='</ul><button type="button" id="sub'.$project["id"].'-'.$task["id"].'" class="success button">+ Add subtask</button>';
+        $building.='</ul><button type="button" id="sub'.$project["id"].'-'.$task["id"].'" class="success button">+ Add subtask</button><br>';
         $building.='<button type="button" id="donetask'.$project["id"].'-'.$task["id"].'" class="small alert button">Task completed</button>';
         $building.='</div></div>';
     }

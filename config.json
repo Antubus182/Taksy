@@ -2,5 +2,6 @@
   "mysqlu":"Tasky",
   "mysqlp":"CD74HC4094",
   "mysqls":"localhost",
-  "mysqldb":"Tasky"
+  "mysqldb":"Tasky",
+  "introtext":"This project is under development but should eventualy allow you to keep track of differtent tasks in different projects"
 }

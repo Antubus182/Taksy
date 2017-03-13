@@ -44,6 +44,14 @@ function subtaskDone($clicker,$taskData,$connection){
 	return $query;
 }
 
+function ProjectDone($connection,$idToUse){
+	//first get all tasks for this project,
+	//then get all subtasks for the tasks
+	//remove all subtasks
+	//remove the tasks
+	//remove the project
+}
+
 function taskDone($connection,$idToUse){
 	$query="UPDATE `Tasks` SET `done`='1' WHERE `id`='".$idToUse."'";
 	mysqli_query($connection,$query);
