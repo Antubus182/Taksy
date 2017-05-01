@@ -78,7 +78,12 @@
                       <li>subtask2</li>
                       <li>Subtask3</li>
                     </ul>
-                    <button type="button" id="sub1-3" class="alert button">+ Add subtask</button>
+                    <button type="button" id="sub1-3" class="success button" data-open="Modal1">+ Add subtask</button>
+                  </div>
+                  <div class="reveal" id="Modal1" data-reveal>
+                    <h1>Dit is een header in de modal</h1>
+                    <p>En dit is tekst eronder</p>
+                    <button type="button" class="alert button" data-close>Sluit Modal</button>
                   </div>
                 </div>
                 <div class="column">
