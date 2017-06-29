@@ -81,7 +81,7 @@ $('button').click(function(){
         addProject(m[2]);
         break;
         default:
-        console.log("unidentified button");
+        console.log("No action Needed");
 
     }
 
@@ -90,15 +90,20 @@ $('button').click(function(){
 
 
 function addProject(userId){
-    console.log("function to call en projectadd");
+    ProjectName=document.getElementById('Projectname'+userId).value;
+    ProjectDes=document.getElementById('ProjectDescription'+userId).value;
+    console.log(ProjectName+" gaat over "+ProjectDes);
 }
 
 function addTask(projectId){
-    console.log("function called to add a task");
+    taskTitle=document.getElementById('taskTitle'+projectId).value;
+    taskColor=document.getElementById('taskColor'+projectId).value;
+    console.log(taskTitle+" krijgt kleur "+taskColor);
 }
 
 function addSub(taskId){
-    console.log("function to add a subtask");
+    subTitle=document.getElementById('subTitle'+taskId).value;
+    console.log(subTitle);
 }
 
 function taskDone(taskId,str){

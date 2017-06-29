@@ -1,12 +1,12 @@
 <?php
 //this file creates the actual html file
 function test($a){
-	$a=$a*2;
-	return $a;
+  $a=$a*2;
+  return $a;
 }
 
 function generatePage($projectData,$usr){
-	$config=json_decode(file_get_contents("../config.json"));
+  $config=json_decode(file_get_contents("../config.json"));
   $startingHtml='<!doctype html>
                     <html class="no-js" lang="en">
                     <head>
@@ -25,8 +25,8 @@ function generatePage($projectData,$usr){
 
   $modalHtml=buildprojectModal($usr->id);
 
-	$menuHtml='
-		<div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
+  $menuHtml='
+    <div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
           <div class="row column">
             <br>
             <img class="thumbnail" id="gebr" src="http://loremflickr.com/225/175">
@@ -36,7 +36,7 @@ function generatePage($projectData,$usr){
           </div>
           <div class="row column">
             <br>
-            <button type="button" id="addProject'.$usr->id.'" class="success button" data-open="addProjectModal'.$usr->id.'">+ Add Project</button>
+            <button type="button" id="addProjectm'.$usr->id.'" class="success button" data-open="addProjectModal'.$usr->id.'">+ Add Project</button>
           </div>
         </div>
 
@@ -48,20 +48,20 @@ function generatePage($projectData,$usr){
             </div>
           </div>';
 
-	$introHtml='
-		  <div class="callout primary">
+  $introHtml='
+      <div class="callout primary">
             <div class="row column">
               <h1>Welkom to Tasky Projectmanager</h1>
               <p class="lead">'.$config->introtext.'</p>
             </div>
           </div>
-	';
+  ';
 
-	$projectlisting='<hr><div id="projectContainers">';
+  $projectlisting='<hr><div id="projectContainers">';
   foreach($projectData as $project){
     $building='<div id="project'.$project["id"].'" class="callout alert"><div class="row column clearfix"><h1 id="p'.$project["id"].'" class="float-left">'.$project['name'].'</h1>';
     $building.='<button type="button" id="projectdone'.$project["id"].'" class="pfin info button float-right">Project Finished</button>';
-    $building.='<button type="button" id="taskadd'.$project["id"].'" class="success button float-right" data-open="taskModal'.$project["id"].'">+ Add Task</button></div><hr>';
+    $building.='<button type="button" id="taskaddm'.$project["id"].'" class="success button float-right" data-open="taskModal'.$project["id"].'">+ Add Task</button></div><hr>';
     $building.='<div class="row small-up-1 medium-up-3 large-up-4" data-equalizer="section'.$project["id"].'" data-equalize-by-row="true">';
     $modalHtml.=buildtaskModal($project["id"]);
     foreach($project["tasks"] as $task){
@@ -82,7 +82,7 @@ function generatePage($projectData,$usr){
             $building.='<li id=subtask'.$subtask["id"].'><input type="checkbox">'.$subtask["subname"].'</li>';
           }
         }
-        $building.='</ul><button type="button" id="sub'.$project["id"].'-'.$task["id"].'" class="success button" data-open="subModal'.$project["id"].'-'.$task["id"].'">+ Add subtask</button><br>';
+        $building.='</ul><button type="button" id="subm'.$project["id"].'-'.$task["id"].'" class="success button" data-open="subModal'.$project["id"].'-'.$task["id"].'">+ Add subtask</button><br>';
         $building.='<button type="button" id="donetask'.$project["id"].'-'.$task["id"].'" class="small alert button">Task completed</button>';
         $building.='</div></div>';
         $modalHtml.=buildsubModal($project["id"],$task["id"]);
@@ -92,7 +92,7 @@ function generatePage($projectData,$usr){
   }
 
 
-	$closingHtml='</div></div></div>
+  $closingHtml='</div></div></div>
                   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
                   <script src="../js/foundation.js"></script>
                   <script src="../js/tasks.js"></script>
@@ -101,23 +101,46 @@ function generatePage($projectData,$usr){
                   </script>
                 </body>';
 
-	$completePage=$startingHtml.$menuHtml.$introHtml.$projectlisting.$modalHtml.$closingHtml;
-	return $completePage;
+  $completePage=$startingHtml.$menuHtml.$introHtml.$projectlisting.$modalHtml.$closingHtml;
+  return $completePage;
 }
 
 function buildsubModal($projectid,$taskid){
-  $leHtml='<div cclass="reveal bounce-in fast" data-reveal data-animation-in="scale-in-up" data-animation-out="fade-out" id="subModal'.$projectid.'-'.$taskid.'" data-reveal>
-                <h1>My first Modal:)</h1>
-                <p>id="subModal'.$projectid.'-'.$taskid.'"</p>
+  $leHtml='<div class="reveal bounce-in fast" data-animation-in="scale-in-up" data-animation-out="fade-out" id="subModal'.$projectid.'-'.$taskid.'" data-reveal>
+                <h2>Add subTask</h2>
+                <div class="row">
+                <form><div class="medium-6 columns">
+                <label>Subtask Name<input id="subTitle'.$taskid.'" type="text"></label>
+                </div></form>
+                </div>
+                <div class="row">
+                <button id="sub'.$projectid.'-'.$taskid.'" data-close class="success button modalbutton" type="button">Add subTask</button>
+                </div>
                 <button class="close-button" data-close aria-label="Close screen" type="button"><span aria-hidden="true">&times;</span></button>
               </div>';
   return $leHtml;
 }
 
 function buildtaskModal($projectid){
-  $leHtml='<div id="taskModal'.$projectid.'" class="reveal bounce-in fast" data-reveal data-animation-in="scale-in-up" data-animation-out="fade-out" data-reveal>
-    <h2>TaskModal</h2>
-    <p> dit is task add voor project '.$projectid.'</p>
+  $leHtml='<div id="taskModal'.$projectid.'" class="reveal bounce-in fast" data-animation-in="scale-in-up" data-animation-out="fade-out" data-reveal>
+    <h2>Add Task</h2>
+                <div class="row">
+                <form><div class="medium-6 columns">
+                <label>Subtask Name<input id="taskTitle'.$projectid.'" type="text"></label>
+                </div>
+                <div class="medium-6 columns">
+                <label>Color<select id="taskColor'.$projectid.'">
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                </select></label>
+                </div>
+                </form>
+                </div>
+                <div class="row">
+                <button id="taskadd'.$projectid.'" data-close class="success button modalbutton" type="button">Add Task</button>
+                </div>
     <button class="close-button" data-close aria-label="Close screen" type="button"><span aria-hidden="true">&times;</span></button>
     </div>';
   return $leHtml;
@@ -125,12 +148,21 @@ function buildtaskModal($projectid){
 
 function buildprojectModal($userid){
   $leHtml='<div id="addProjectModal'.$userid.'" class="reveal bounce-in fast" data-reveal data-animation-in="scale-in-up" data-animation-out="fade-out">
-                    <p>This is a reveal where a new project can be added</p>
-                    <p>The current user has id: '.$userid.'</p>
-                    <button class="close-button" data-close aria-label="Close modal" type="button">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>';
+                <h2>Add Project</h2>
+                <div class="row">
+                <form><div class="medium-6 columns">
+                <label>Project Name<input id="Projectname'.$userid.'" type="text"></label>
+                </div>
+                <div class="medium-6 columns">
+                <label>Project Description<textarea id="ProjectDescription'.$userid.'"></textarea>
+                </div>
+                </form>
+                </div>
+                <div class="row">
+                <button id="addProject'.$userid.'" data-close class="success button modalbutton" type="button">Create Project</button>
+                </div>
+                    <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true">&times;</span></button>
+            </div>';
   return $leHtml;
 }
 
@@ -142,11 +174,11 @@ each project is an assocarray with the following structure:
 "description"=a project description
 "color"=a hexcolor code for the background (no #)
 "tasks"= an array with the tasks
-	"tname"=the task name
-	"color"= an integer representing the class determining the postit color
-	"done"=an integer 1 or 0 to check if the task is done
-	"subtasks"= an array with subtasks
-		in this array the key is the title of the subtask and the value is an integer stating wheter or not it is completed
+  "tname"=the task name
+  "color"= an integer representing the class determining the postit color
+  "done"=an integer 1 or 0 to check if the task is done
+  "subtasks"= an array with subtasks
+    in this array the key is the title of the subtask and the value is an integer stating wheter or not it is completed
 
 using an assocarray instead of an object is to provide the possiblitity to in a future release directly return a json object to the javascript file
 */
