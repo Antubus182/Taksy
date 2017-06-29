@@ -76,6 +76,7 @@ function generatePage($projectData,$usr){
         $building.='<h5>'.$task["tname"].'</h5><ul>';
         foreach($task["subtasks"] as $subtask){
           if($subtask["done"]){
+
             $building.='<li id=subtask'.$subtask["id"].' class="subdone"><input type="checkbox" checked>'.$subtask["subname"].'</li>';
           }
           else{

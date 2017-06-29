@@ -30,7 +30,7 @@ function getTasks($pid,$connection){
 
 function getSubTasks($tid,$connection){
 
-	$query="SELECT * FROM `subs` WHERE `tid`= '".$tid."'";
+	$query="SELECT * FROM `Subs` WHERE `tid`= '".$tid."'";
 	$resultobject=mysqli_query($connection,$query);
 	$result=array();
 	while($results=mysqli_fetch_object($resultobject)){
