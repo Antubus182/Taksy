@@ -104,6 +104,18 @@ function addTask(projectId){
 function addSub(taskId){
     subTitle=document.getElementById('subTitle'+taskId).value;
     console.log(subTitle);
+    console.log(taskId);
+
+    $.post("updateProfile.php",
+    {
+        updateTask:4,
+        taskId:taskId,
+        subName:subTitle
+    },
+    function(data,status){
+        console.log(status);
+        console.log(data);
+    });
 }
 
 function taskDone(taskId,str){

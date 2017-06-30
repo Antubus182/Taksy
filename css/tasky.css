@@ -18,6 +18,10 @@ input[type="checkbox"]{
 	min-height:150px;
 }
 
+#my-info{
+	height:100%;
+}
+
 
 
 /* Taskslip is a varition on the 100% css post-it by Alex Krasny  http://mentormate.com/blog/css-postit-note*/
