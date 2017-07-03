@@ -139,6 +139,9 @@ function addSub(taskId){
     function(data,status){
         console.log(status);
         console.log(data);
+        if(status=='success'){
+            location.reload();
+        }
     });
 }
 
