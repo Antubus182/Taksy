@@ -93,6 +93,18 @@ function addProject(userId){
     ProjectName=document.getElementById('Projectname'+userId).value;
     ProjectDes=document.getElementById('ProjectDescription'+userId).value;
     console.log(ProjectName+" gaat over "+ProjectDes);
+
+    $.post("updateProfile.php",
+    {
+        updateTask:6,
+        userId:userId,
+        ProjectName:ProjectName,
+        ProjectDescription:ProjectDes
+    },
+    function(data,status){
+        console.log(status);
+        console.log(data);
+    });
 }
 
 function addTask(projectId){

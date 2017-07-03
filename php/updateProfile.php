@@ -1,4 +1,7 @@
 <?php
+if($_SERVER['REQUEST_METHOD']!=='POST'){
+	exit("only for post request");
+}
 
 $updateTaskId=(isset($_POST["updateTask"])? $_POST["updateTask"]:NULL);
 $clicker=(isset($_POST["clicker"])? $_POST["clicker"]:NULL);
@@ -9,6 +12,9 @@ $subName=(isset($_POST["subName"])? $_POST["subName"]:NULL);
 $projectId=(isset($_POST["projectId"])? $_POST["projectId"]:NULL);
 $taskName=(isset($_POST["taskName"])? $_POST["taskName"]:NULL);
 $taskColor=(isset($_POST["taskColor"])? $_POST["taskColor"]:NULL);
+$userId=(isset($_POST["userId"])? $_POST["userId"]:NULL);
+$ProjectName=(isset($_POST["ProjectName"])? $_POST["ProjectName"]:NULL);
+$ProjectDescription=(isset($_POST["ProjectDescription"])? $_POST["ProjectDescription"]:NULL);
 
 
 $config=json_decode(file_get_contents("../config.json"));
@@ -39,6 +45,10 @@ switch($updateTaskId){
 	case 5:
 		$output="add Task\n";
 		$output=addTask($connection,$projectId,$taskName,$taskColor);
+		break;
+	case 6:
+		$output="add Project\n";
+		$output=addProject($connection,$userId,$ProjectName,$ProjectDescription);
 		break;
 	default:
 		$output="ging niet helemaal goed\n";
@@ -87,7 +97,21 @@ function addTask($connection,$projectId,$taskName,$taskColor){
 	return $query;
 }
 
-
+function addProject($connection,$userId,$ProjectName,$ProjectDescription){
+	$userId=mysqli_real_escape_string($connection,$userId);
+	$ProjectName=mysqli_real_escape_string($connection,$ProjectName);
+	$ProjectDescription=mysqli_real_escape_string($connection,$ProjectDescription);
+	$query="INSERT INTO `Projects` (`title`,`owner`,`description`,`color`) VALUES ('$ProjectName','$userId','$ProjectDescription','red')";
+	mysqli_query($connection,$query);
+	$sql = "SELECT `id` FROM `Projects` WHERE `owner` ='$userId' AND `title`='$ProjectName' AND `description`='$ProjectDescription' ORDER BY `id` DESC LIMIT 1";
+	$selectsql=mysqli_query($connection,$sql);
+	$result=mysqli_fetch_object($selectsql);
+	$pid=$result->id;
+	$pidAdd=",".$pid;
+	$query2="UPDATE `Users` SET `projectids`=CONCAT(`projectids`,'$pidAdd') WHERE `id`='$userId'";
+	mysqli_query($connection,$query2);
+	return $query2;
+}
 
 	mysqli_close($connection);
 	echo $output;
