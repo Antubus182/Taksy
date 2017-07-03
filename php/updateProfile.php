@@ -6,6 +6,9 @@ $taskData=(isset($_POST["taskData"])? $_POST["taskData"]:NULL);
 $idToUse=(isset($_POST["idToUse"])? $_POST["idToUse"]:NULL);
 $taskId=(isset($_POST["taskId"])? $_POST["taskId"]:NULL);
 $subName=(isset($_POST["subName"])? $_POST["subName"]:NULL);
+$projectId=(isset($_POST["projectId"])? $_POST["projectId"]:NULL);
+$taskName=(isset($_POST["taskName"])? $_POST["taskName"]:NULL);
+$taskColor=(isset($_POST["taskColor"])? $_POST["taskColor"]:NULL);
 
 
 $config=json_decode(file_get_contents("../config.json"));
@@ -32,6 +35,10 @@ switch($updateTaskId){
 	case 4:
 		$output="add subtask\n";
 		$output=addSubTask($connection,$taskId,$subName);
+		break;
+	case 5:
+		$output="add Task\n";
+		$output=addTask($connection,$projectId,$taskName,$taskColor);
 		break;
 	default:
 		$output="ging niet helemaal goed\n";
@@ -66,7 +73,16 @@ function taskDone($connection,$idToUse){
 function addSubTask($connection,$taskId,$subName){
 	$subName=mysqli_real_escape_string($connection,$subName);
 	$taskId=mysqli_real_escape_string($connection,$taskId);
-	$query="INSERT INTO `Subs` (`sname`,`done`,`tid`) VALUES ('".$subName."','0','".$taskId."')";
+	$query="INSERT INTO `Subs` (`sname`,`done`,`tid`) VALUES ('$subName','0','$taskId')";
+	mysqli_query($connection,$query);
+	return $query;
+}
+
+function addTask($connection,$projectId,$taskName,$taskColor){
+	$projectId=mysqli_real_escape_string($connection,$projectId);
+	$taskName=mysqli_real_escape_string($connection,$taskName);
+	$taskColor=mysqli_real_escape_string($connection,$taskColor);
+	$query="INSERT INTO `Tasks` (`tname`,`color`,`done`,`pid`) VALUES ('$taskName','$taskColor','0','$projectId')";
 	mysqli_query($connection,$query);
 	return $query;
 }

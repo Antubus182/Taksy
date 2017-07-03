@@ -99,6 +99,18 @@ function addTask(projectId){
     taskTitle=document.getElementById('taskTitle'+projectId).value;
     taskColor=document.getElementById('taskColor'+projectId).value;
     console.log(taskTitle+" krijgt kleur "+taskColor);
+
+    $.post("updateProfile.php",
+    {
+        updateTask:5,
+        projectId:projectId,
+        taskColor:taskColor,
+        taskName:taskTitle
+    },
+    function(data,status){
+        console.log(status);
+        console.log(data);
+    });
 }
 
 function addSub(taskId){
