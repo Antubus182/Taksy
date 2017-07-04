@@ -72,6 +72,13 @@ function ProjectDone($connection,$idToUse){
 	//remove all subtasks
 	//remove the tasks
 	//remove the project
+	//$sql = "SELECT `id` FROM `Users` WHERE `projectids` LIKE \"%$idToUse%\""; deze query vind alle gebruikers die in dit project zaten
+	$taskQuery="SELECT `id` FROM `Tasks` WHERE `pid`='$idToUse'";
+	$subTaskQuery="SELECT `id` FROM `Subs` WHERE `tid`='$t'";
+	$deleteSub="DELETE FROM `Subs` WHERE `id`='$sudid'";
+	$deleteTask="DELETE FROM `Tasks` WHERE `id`='$t'";
+	$deleteProject="DELETE FROM `Projects` WHERE `id`='$idToUse'";
+
 }
 
 function taskDone($connection,$idToUse){

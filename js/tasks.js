@@ -66,7 +66,7 @@ $('button').click(function(){
     //console.log("id2 is: "+m[3]);
     switch(m[1]){
         case "donetask":
-        taskDone(m[3],str);
+        taskDone(m[3]);
         break;
         case "sub":
         addSub(m[3]);
@@ -122,6 +122,9 @@ function addTask(projectId){
     function(data,status){
         console.log(status);
         console.log(data);
+        if(status=='success'){
+            location.reload();
+        }
     });
 }
 
@@ -145,7 +148,7 @@ function addSub(taskId){
     });
 }
 
-function taskDone(taskId,str){
+function taskDone(taskId){
     console.log("taskdone function called");
     $.post("updateProfile.php",
     {
@@ -156,7 +159,7 @@ function taskDone(taskId,str){
         console.log(data);
         console.log(status);
         if(status=="success"){
-            $('#'+str).parent().parent().addClass("hidden");
+            $('#taskdone'+taskId).parent().parent().addClass("hidden");
         }
     });
 }

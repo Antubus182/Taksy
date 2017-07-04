@@ -1,7 +1,7 @@
 <?php
 session_start();		//starting a session
 $error="";
-$passvalid=false;
+
 if(isset($_POST['submit'])){
 	if(empty($_POST['username'])||empty($_POST['password'])){
 		$error="Empty Username or Password";

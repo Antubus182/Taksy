@@ -59,7 +59,7 @@ function generatePage($projectData,$usr){
 
   $projectlisting='<hr><div id="projectContainers">';
   foreach($projectData as $project){
-    $building='<div id="project'.$project["id"].'" class="callout alert"><div class="row column clearfix"><h1 id="p'.$project["id"].'" class="float-left">'.$project['name'].'</h1>';
+    $building='<div id="project'.$project["id"].'" class="callout groen"><div class="row column clearfix"><h1 id="p'.$project["id"].'" class="float-left">'.$project['name'].'</h1>';
     $building.='<button type="button" id="projectdone'.$project["id"].'" class="pfin info button float-right">Project Finished</button>';
     $building.='<button type="button" id="taskaddm'.$project["id"].'" class="success button float-right" data-open="taskModal'.$project["id"].'">+ Add Task</button></div><hr>';
     $building.='<div class="row small-up-1 medium-up-3 large-up-4" data-equalizer="section'.$project["id"].'" data-equalize-by-row="true">';
@@ -84,9 +84,10 @@ function generatePage($projectData,$usr){
           }
         }
         $building.='</ul><button type="button" id="subm'.$project["id"].'-'.$task["id"].'" class="success button" data-open="subModal'.$project["id"].'-'.$task["id"].'">+ Add subtask</button><br>';
-        $building.='<button type="button" id="donetask'.$project["id"].'-'.$task["id"].'" class="small alert button">Task completed</button>';
+        $building.='<button type="button" id="taskdone'.$task["id"].'" class="small alert button" data-open="DeletetaskModal'.$task["id"].'">Task completed</button>';
         $building.='</div></div>';
         $modalHtml.=buildsubModal($project["id"],$task["id"]);
+        $modalHtml.=buildTaskConformationModal($task["id"],$project["id"]);
     }
     $building.='</div></div>';
     $projectlisting.=$building;
@@ -165,6 +166,28 @@ function buildprojectModal($userid){
                     <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true">&times;</span></button>
             </div>';
   return $leHtml;
+}
+
+function buildTaskConformationModal($taskId,$projectId){
+  $modalHtml='<div id="DeletetaskModal'.$taskId.'" class="reveal bounce-in fast" data-reveal data-animation-in="scale-in-up" data-animation-out="fade-out">
+                <h4 class="delmodal">Are you sure you want to delete this task?</h4>
+                <div class="row">
+                  <div class="medium-6 columns">
+                  <button id="donetask'.$projectId.'-'.$taskId.'" data-close class="success button expanded modalbutton" type="button">Yes</button>
+                  </div>
+                  <div class="medium-6 columns">
+                  <button id="cancel'.$projectId.'-'.$taskId.'" data-close class="alert button expanded modalbutton" type="button">No</button>
+                  </div>
+                </div>
+                <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true">&times;</span></button>
+              </div>';
+
+  return $modalHtml;
+
+}
+
+function buildProjectConformationModal($projectId){
+
 }
 
 /*

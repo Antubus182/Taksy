@@ -3,6 +3,13 @@ include_once 'htmlBuilder.php';
 include_once 'datacollection.php';
 session_start();
 
+if(!isset($_SESSION['login_user'])){
+	if(session_destroy()){ // Destroying All Sessions
+		header("Location: ../index.php"); // Redirecting To Home Page
+		exit();
+		}
+}
+
 $usr=$_SESSION['login_user'];
 //$usr="Niels";
 $config=json_decode(file_get_contents("../config.json"));
@@ -55,6 +62,6 @@ $dbname=$config->mysqldb;
 
 
 	$html=generatePage($projectlist,$userdata);
-	echo $html;
+	echo $html.$test;
 	//print_r($projectlist);
 ?>
