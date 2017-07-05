@@ -58,39 +58,41 @@ function generatePage($projectData,$usr){
   ';
 
   $projectlisting='<hr><div id="projectContainers">';
-  foreach($projectData as $project){
-    $building='<div id="project'.$project["id"].'" class="callout groen"><div class="row column clearfix"><h1 id="p'.$project["id"].'" class="float-left">'.$project['name'].'</h1>';
-    $building.='<button type="button" id="projectdone'.$project["id"].'" class="pfin info button float-right">Project Finished</button>';
-    $building.='<button type="button" id="taskaddm'.$project["id"].'" class="success button float-right" data-open="taskModal'.$project["id"].'">+ Add Task</button></div><hr>';
-    $building.='<div class="row small-up-1 medium-up-3 large-up-4" data-equalizer="section'.$project["id"].'" data-equalize-by-row="true">';
-    $modalHtml.=buildtaskModal($project["id"]);
-    foreach($project["tasks"] as $task){
-      //if(!$task["done"]){
-        if($task["done"]){
-          $building.='<div class="column hidden"><div class="taskslip '.$task["color"].'">';
-        }
-        else{
-          $building.='<div class="column"><div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
-        }
-        //$building.='<div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
-        $building.='<h5>'.$task["tname"].'</h5><ul>';
-        foreach($task["subtasks"] as $subtask){
-          if($subtask["done"]){
-
-            $building.='<li id=subtask'.$subtask["id"].' class="subdone"><input type="checkbox" checked>'.$subtask["subname"].'</li>';
+  if($projectData!=NULL){
+    foreach($projectData as $project){
+      $building='<div id="project'.$project["id"].'" class="callout groen '.count($projectData).'"><div class="row column clearfix"><h1 id="p'.$project["id"].'" class="float-left">'.$project['name'].'</h1>';
+      $building.='<button type="button" id="projectdone'.$project["id"].'" class="pfin info button float-right">Project Finished</button>';
+      $building.='<button type="button" id="taskaddm'.$project["id"].'" class="success button float-right" data-open="taskModal'.$project["id"].'">+ Add Task</button></div><hr>';
+      $building.='<div class="row small-up-1 medium-up-3 large-up-4" data-equalizer="section'.$project["id"].'" data-equalize-by-row="true">';
+      $modalHtml.=buildtaskModal($project["id"]);
+      foreach($project["tasks"] as $task){
+        //if(!$task["done"]){
+          if($task["done"]){
+            $building.='<div class="column hidden"><div class="taskslip '.$task["color"].'">';
           }
           else{
-            $building.='<li id=subtask'.$subtask["id"].'><input type="checkbox">'.$subtask["subname"].'</li>';
+            $building.='<div class="column"><div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
           }
-        }
-        $building.='</ul><button type="button" id="subm'.$project["id"].'-'.$task["id"].'" class="success button" data-open="subModal'.$project["id"].'-'.$task["id"].'">+ Add subtask</button><br>';
-        $building.='<button type="button" id="taskdone'.$task["id"].'" class="small alert button" data-open="DeletetaskModal'.$task["id"].'">Task completed</button>';
-        $building.='</div></div>';
-        $modalHtml.=buildsubModal($project["id"],$task["id"]);
-        $modalHtml.=buildTaskConformationModal($task["id"],$project["id"]);
+          //$building.='<div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
+          $building.='<h5>'.$task["tname"].'</h5><ul>';
+          foreach($task["subtasks"] as $subtask){
+            if($subtask["done"]){
+
+              $building.='<li id=subtask'.$subtask["id"].' class="subdone"><input type="checkbox" checked>'.$subtask["subname"].'</li>';
+            }
+            else{
+              $building.='<li id=subtask'.$subtask["id"].'><input type="checkbox">'.$subtask["subname"].'</li>';
+            }
+          }
+          $building.='</ul><button type="button" id="subm'.$project["id"].'-'.$task["id"].'" class="success button" data-open="subModal'.$project["id"].'-'.$task["id"].'">+ Add subtask</button><br>';
+          $building.='<button type="button" id="taskdone'.$task["id"].'" class="small alert button" data-open="DeletetaskModal'.$task["id"].'">Task completed</button>';
+          $building.='</div></div>';
+          $modalHtml.=buildsubModal($project["id"],$task["id"]);
+          $modalHtml.=buildTaskConformationModal($task["id"],$project["id"]);
+      }
+      $building.='</div></div>';
+      $projectlisting.=$building;
     }
-    $building.='</div></div>';
-    $projectlisting.=$building;
   }
 
 

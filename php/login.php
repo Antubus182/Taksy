@@ -33,7 +33,7 @@ if(isset($_POST['submit'])){
 		}
 		else{
 			$error="Username and/or Password is invalid";
-			//$error=$hash;
+			$error=$hash;
 		}
 	}
 }
