@@ -48,12 +48,12 @@ $('input:checkbox').click(function(){
 /*
 The code below desides what button was pressed to determine action
 */
-const regex = /(\w+)(\d+)-*(\d*)/g;
+const regex = /([a-zA-Z]+)-*(\d*)-*(\d*)/g;
 var token="not back";
 $('button').click(function(){
     //console.log(this.id);
     var str=this.id;
-
+    console.log(str);
     let m;
 
     while ((m = regex.exec(str)) !== null) {
