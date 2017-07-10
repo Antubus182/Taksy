@@ -22,6 +22,10 @@ input[type="checkbox"]{
 	height:100%;
 }
 
+.column:last-child:not(:first-child){
+	float:left;			/*Strange foundation behaviour makes the last child automaticly float right wich looks dumb*/
+}
+
 
 
 /* Taskslip is a varition on the 100% css post-it by Alex Krasny  http://mentormate.com/blog/css-postit-note*/

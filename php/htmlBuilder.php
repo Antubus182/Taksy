@@ -63,7 +63,7 @@ function generatePage($projectData,$usr){
       $building='<div id="project'.$project["id"].'" class="callout groen '.count($projectData).'"><div class="row column clearfix"><h1 id="p'.$project["id"].'" class="float-left">'.$project['name'].'</h1>';
       $building.='<button type="button" id="projectdone'.$project["id"].'" class="pfin info button float-right">Project Finished</button>';
       $building.='<button type="button" id="taskaddm'.$project["id"].'" class="success button float-right" data-open="taskModal'.$project["id"].'">+ Add Task</button></div><hr>';
-      $building.='<div class="row small-up-1 medium-up-3 large-up-4" data-equalizer="section'.$project["id"].'" data-equalize-by-row="true">';
+      $building.='<div class="row" data-equalizer="section'.$project["id"].'" data-equalize-by-row="true">';
       $modalHtml.=buildtaskModal($project["id"]);
       foreach($project["tasks"] as $task){
         //if(!$task["done"]){
@@ -71,7 +71,7 @@ function generatePage($projectData,$usr){
             $building.='<div class="column hidden"><div class="taskslip '.$task["color"].'">';
           }
           else{
-            $building.='<div class="column"><div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
+            $building.='<div class="column small-6 medium-4 large-3"><div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
           }
           //$building.='<div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
           $building.='<h5>'.$task["tname"].'</h5><ul>';
