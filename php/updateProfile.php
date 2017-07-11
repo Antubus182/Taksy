@@ -15,6 +15,7 @@ $taskColor=(isset($_POST["taskColor"])? $_POST["taskColor"]:NULL);
 $userId=(isset($_POST["userId"])? $_POST["userId"]:NULL);
 $ProjectName=(isset($_POST["ProjectName"])? $_POST["ProjectName"]:NULL);
 $ProjectDescription=(isset($_POST["ProjectDescription"])? $_POST["ProjectDescription"]:NULL);
+$ProjectDoneId=(isset($_POST["ProjectDoneId"])? $_POST["ProjectDoneId"]:NULL);
 
 
 $config=json_decode(file_get_contents("../config.json"));
@@ -37,6 +38,7 @@ switch($updateTaskId){
 		break;
 	case 3:
 		$output="ProjectDone\n";
+		$output=ProjectDone($connection,$ProjectDoneId);
 		break;
 	case 4:
 		$output="add subtask\n";
@@ -56,6 +58,7 @@ switch($updateTaskId){
 
 function subtaskDone($clicker,$taskData,$connection){
 	$id=substr($clicker,7);
+	$id=mysqli_real_escape_string($connection,$id);
 	if($taskData=="true"){
 		$query="UPDATE `Subs` SET `done`='1' WHERE `id`='".$id."'";
 	}
@@ -67,6 +70,7 @@ function subtaskDone($clicker,$taskData,$connection){
 }
 
 function ProjectDone($connection,$idToUse){
+	$idToUse=mysqli_real_escape_string($connection,$idToUse);
 	//first get all tasks for this project,
 	//then get all subtasks for the tasks
 	//remove all subtasks
@@ -74,14 +78,16 @@ function ProjectDone($connection,$idToUse){
 	//remove the project
 	//$sql = "SELECT `id` FROM `Users` WHERE `projectids` LIKE \"%$idToUse%\""; deze query vind alle gebruikers die in dit project zaten
 	$taskQuery="SELECT `id` FROM `Tasks` WHERE `pid`='$idToUse'";
-	$subTaskQuery="SELECT `id` FROM `Subs` WHERE `tid`='$t'";
-	$deleteSub="DELETE FROM `Subs` WHERE `id`='$sudid'";
-	$deleteTask="DELETE FROM `Tasks` WHERE `id`='$t'";
-	$deleteProject="DELETE FROM `Projects` WHERE `id`='$idToUse'";
-
+	//mysqli_query($connection,$taskQuery);
+	//$subTaskQuery="SELECT `id` FROM `Subs` WHERE `tid`='$t'";
+	//$deleteSub="DELETE FROM `Subs` WHERE `id`='$sudid'";
+	//$deleteTask="DELETE FROM `Tasks` WHERE `id`='$t'";
+	//$deleteProject="DELETE FROM `Projects` WHERE `id`='$idToUse'";
+	return($taskQuery);
 }
 
 function taskDone($connection,$idToUse){
+	$idToUse=mysqli_real_escape_string($connection,$idToUse);
 	$query="UPDATE `Tasks` SET `done`='1' WHERE `id`='".$idToUse."'";
 	mysqli_query($connection,$query);
 	return $query;

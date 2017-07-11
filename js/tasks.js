@@ -172,7 +172,7 @@ function projectDone(projectId){
     $.post("updateProfile.php",
     {
         updateTask:3,
-        idToUse:projectId
+        ProjectDoneId:projectId
     },
     function(data,status){
         console.log(data);

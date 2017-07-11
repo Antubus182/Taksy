@@ -1,9 +1,5 @@
 <?php
 //this file creates the actual html file
-function test($a){
-  $a=$a*2;
-  return $a;
-}
 
 function generatePage($projectData,$usr){
   $config=json_decode(file_get_contents("../config.json"));
@@ -29,7 +25,7 @@ function generatePage($projectData,$usr){
     <div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
           <div class="row column">
             <br>
-            <img class="thumbnail" id="gebr" src="http://loremflickr.com/225/175">
+            <img class="thumbnail" id="gebr" src="../img/User_image/profile.jpg">
             <h5>Welcome '.$usr->name.'</h5>
             <p>'.$usr->about.'</p>
             <a type="button" href="logout.php" id="logout" class="alert button">Logout</a>
