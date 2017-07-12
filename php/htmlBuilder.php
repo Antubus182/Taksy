@@ -57,10 +57,11 @@ function generatePage($projectData,$usr){
   if($projectData!=NULL){
     foreach($projectData as $project){
       $building='<div id="project'.$project["id"].'" class="callout groen '.count($projectData).'"><div class="row column clearfix"><h1 id="p'.$project["id"].'" class="float-left">'.$project['name'].'</h1>';
-      $building.='<button type="button" id="projectdone'.$project["id"].'" class="pfin info button float-right">Project Finished</button>';
+      $building.='<button type="button" id="projectDoneModalCall'.$project["id"].'" data-open="DeleteProjectModal'.$project["id"].'" class="pfin info button float-right">Project Finished</button>';
       $building.='<button type="button" id="taskaddm'.$project["id"].'" class="success button float-right" data-open="taskModal'.$project["id"].'">+ Add Task</button></div><hr>';
       $building.='<div class="row" data-equalizer="section'.$project["id"].'" data-equalize-by-row="true">';
       $modalHtml.=buildtaskModal($project["id"]);
+      $modalHtml.=buildProjectKillConformationModal($project["id"]);
       foreach($project["tasks"] as $task){
         //if(!$task["done"]){
           if($task["done"]){
@@ -184,11 +185,26 @@ function buildTaskConformationModal($taskId,$projectId){
 
 }
 
-function buildProjectConformationModal($projectId){
+function buildProjectKillConformationModal($projectId){
+    $modalHtml='<div id="DeleteProjectModal'.$projectId.'" class="reveal bounce-in fast" data-reveal data-animation-in="scale-in-up" data-animation-out="fade-out">
+                  <h4>Are you sure you want to delete this project and all its tasks?</h4>
+                  <div class="row">
+                    <div class="medium-6 columns">
+                    <button id="projectdone'.$projectId.'" data-close class="success button expanded modalbutton" type="button">Yes</button>
+                    </div>
+                    <div class="medium-6 columns">
+                    <button id="cancelProject'.$projectId.'" data-close class="alert button expanded modalbutton" type="button">No</button>
+                    </div>
+                  </div>
+                  <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true">&times;</span></button>
+                </div>';
 
+    return $modalHtml;
 }
 
 /*
+id="projectdone'.$project["id"]
+
 $projectData is an array with all projects that need to be renderd
 each project is an assocarray with the following structure:
 "name"=projecttitle

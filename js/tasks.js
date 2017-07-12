@@ -177,6 +177,9 @@ function projectDone(projectId){
     function(data,status){
         console.log(data);
         console.log(status);
+        if(status=='success'){
+            location.reload();
+        }
     });
 
 }

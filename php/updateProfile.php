@@ -37,7 +37,7 @@ switch($updateTaskId){
 		$output=taskDone($connection,$idToUse);
 		break;
 	case 3:
-		$output="ProjectDone\n";
+		$output="Delete Project\n";
 		$output=ProjectDone($connection,$ProjectDoneId);
 		break;
 	case 4:
@@ -70,20 +70,48 @@ function subtaskDone($clicker,$taskData,$connection){
 }
 
 function ProjectDone($connection,$idToUse){
+	//Future note: When a Project is shared, the owner field in the Project table should match with who issues the delete
 	$idToUse=mysqli_real_escape_string($connection,$idToUse);
-	//first get all tasks for this project,
-	//then get all subtasks for the tasks
-	//remove all subtasks
-	//remove the tasks
-	//remove the project
-	//$sql = "SELECT `id` FROM `Users` WHERE `projectids` LIKE \"%$idToUse%\""; deze query vind alle gebruikers die in dit project zaten
+	$dummy="";
+	$sql = "SELECT `id`,`projectids` FROM `Users` WHERE `projectids` REGEXP ',$idToUse(,|$)'";//deze query vind alle gebruikers die in dit project zaten
 	$taskQuery="SELECT `id` FROM `Tasks` WHERE `pid`='$idToUse'";
-	//mysqli_query($connection,$taskQuery);
-	//$subTaskQuery="SELECT `id` FROM `Subs` WHERE `tid`='$t'";
-	//$deleteSub="DELETE FROM `Subs` WHERE `id`='$sudid'";
-	//$deleteTask="DELETE FROM `Tasks` WHERE `id`='$t'";
-	//$deleteProject="DELETE FROM `Projects` WHERE `id`='$idToUse'";
-	return($taskQuery);
+	$result=mysqli_query($connection,$taskQuery);
+	$taskArray=[];
+	while($results=mysqli_fetch_array($result, MYSQLI_NUM)){
+		$taskArray[]=$results[0];
+	}
+	$subArray=[];
+	
+	foreach($taskArray as $t){
+		$subTaskQuery="SELECT `id` FROM `Subs` WHERE `tid`='$t'";
+		$result=mysqli_query($connection,$subTaskQuery);
+		while($results=mysqli_fetch_array($result,MYSQLI_NUM)){
+			$subArray[]=$results[0];
+		}
+	}
+	foreach ($subArray as $sub) {
+		$deleteSub="DELETE FROM `Subs` WHERE `id`='$sudid'";
+		mysqli_query($connection,$deleteSub);
+	}
+
+	foreach($taskArray as $t){
+		$deleteTask="DELETE FROM `Tasks` WHERE `id`='$t'";
+		mysqli_query($connection,$deleteTask);
+	}
+
+	$deleteProject="DELETE FROM `Projects` WHERE `id`='$idToUse'";
+	mysqli_query($connection,$deleteProject);
+	
+	$result=mysqli_query($connection,$sql);
+	while($results=mysqli_fetch_array($result,MYSQLI_NUM)){
+		$dummy.=$results[1];
+		$cut=",".$idToUse;
+		$newids=str_replace($cut, "", $results[1]);
+		$uid=$results[0];
+		$updateProjectQuery="UPDATE `Users` SET `projectids`='$newids' where `id`='$uid'";
+		mysqli_query($connection,$updateProjectQuery);
+	}
+	return($deleteProject);
 }
 
 function taskDone($connection,$idToUse){
