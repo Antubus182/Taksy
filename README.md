@@ -1,21 +1,21 @@
 # Taksy
-A javascript/php/mysql based project/task mangager that is still in alpha stage of development
+A javascript/php/mysql based project/task mangager that is now in Beta stage of development
 
-Right now this project is not fully functioning, it fetches data from the database, based on a username en renders a page.
+Right now the project is fully functional with the exeption of user managment and setup.
+The databases needs to be setup Manualy and users have to be added to the database by hand.
+The calculated hash for the user password can be temporarly outputed to the login screen for this reason.
 
-Also the login now just ignores the password, I need a safe/secure way to handle that.
+At this time, New projects can be created, tasks and subtasks added and everything can be flaged done, deleting the data when the project is marked finnished.
 
-When all that is functional I need options for users to be created and edited. At that point this would be considered beta.
-
-After the beta maybe some other features may be added (shared projects, custom themes)
+Comming updates will focus on the styling of the page and user management. Also the ability to edit (sub)Tasks wil be implemented shortly
 
 The flow in this project is as follows:
 
 first the index.php is loaded,
 This page includes the login.php file
-In the header, it is checked wheter there is a session active, if there is the user is redirected to the personalList.php page
+In the header, it is checked whether there is a session active, if there is the user is redirected to the personalList.php page
 
-The login.php starts a session and (in the future) will check the user credentials, if correct, the user is added to the session
+The login.php starts a session and will check the user credentials, if correct, the user is added to the session
 and redirected to the personalList.php page.
 
 The personalList.php page is the main page of the project. It includes the htmlBuilder.php and datacollection.php scripts.
