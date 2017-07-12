@@ -1,4 +1,4 @@
-# Taksy
+# Tasky
 A javascript/php/mysql based project/task mangager that is now in Beta stage of development
 
 Right now the project is fully functional with the exeption of user managment and setup.
