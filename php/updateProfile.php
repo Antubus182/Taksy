@@ -90,7 +90,7 @@ function ProjectDone($connection,$idToUse){
 		}
 	}
 	foreach ($subArray as $sub) {
-		$deleteSub="DELETE FROM `Subs` WHERE `id`='$sudid'";
+		$deleteSub="DELETE FROM `Subs` WHERE `id`='$sub'";
 		mysqli_query($connection,$deleteSub);
 	}
 

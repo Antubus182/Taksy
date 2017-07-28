@@ -3,5 +3,5 @@
   "mysqlp":"CD74HC4094",
   "mysqls":"localhost",
   "mysqldb":"Tasky",
-  "introtext":"This project is under development but should eventualy allow you to keep track of differtent tasks in different projects"
+  "introtext":"Welcome to Tasky. The Project Taskmanager that helps you keep track of all your projects"
 }

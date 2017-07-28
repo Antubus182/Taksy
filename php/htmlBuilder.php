@@ -47,7 +47,7 @@ function generatePage($projectData,$usr){
   $introHtml='
       <div class="callout primary">
             <div class="row column">
-              <h1>Welkom to Tasky Projectmanager</h1>
+              <h1 class="welcome">Welkom to Tasky Projectmanager</h1>
               <p class="lead">'.$config->introtext.'</p>
             </div>
           </div>
@@ -135,6 +135,7 @@ function buildtaskModal($projectid){
                 <option value="green">Green</option>
                 <option value="red">Red</option>
                 <option value="blue">Blue</option>
+                <option value="grey">Grey</option>
                 </select></label>
                 </div>
                 </form>
