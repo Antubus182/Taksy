@@ -85,6 +85,15 @@ input[type="checkbox"]{
 	padding: 1rem 0;
 }
 
+.modalbutton{
+	margin-left: 0.9375rem;
+}
+@media screen and (min-width: 40em){
+	.reveal {
+		border-radius:0.35rem;
+	}
+}
+
 .callout.red{
 	background-color: #FDA0A0;
 }
