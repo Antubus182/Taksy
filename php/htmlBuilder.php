@@ -68,7 +68,7 @@ function generatePage($projectData,$usr){
             $building.='<div class="column hidden"><div class="taskslip '.$task["color"].'">';
           }
           else{
-            $building.='<div class="column small-6 medium-4 large-3"><div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
+            $building.='<div class="column small-12 medium-4 large-3"><div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
           }
           //$building.='<div class="taskslip '.$task["color"].'" data-equalizer-watch="section'.$project["id"].'">';
           $building.='<h5>'.$task["tname"].'</h5><ul>';

@@ -22,6 +22,7 @@ function getTasks($pid,$connection){
 	$resultobject=mysqli_query($connection,$query);
 	$result=array();
 	while($results=mysqli_fetch_object($resultobject)){
+		$results->tname=htmlentities($results->tname);
 		$result[]=$results;
 	}
 	
@@ -34,6 +35,7 @@ function getSubTasks($tid,$connection){
 	$resultobject=mysqli_query($connection,$query);
 	$result=array();
 	while($results=mysqli_fetch_object($resultobject)){
+		$results->sname=htmlentities($results->sname);
 		$result[]=$results;
 	}
 	return $result;
