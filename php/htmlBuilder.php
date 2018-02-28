@@ -111,7 +111,7 @@ function buildsubModal($projectid,$taskid){
                 <h2>Add subTask</h2>
                 <div class="row">
                 <form><div class="medium-6 columns">
-                <label>Subtask Name<input id="subTitle'.$taskid.'" type="text"></label>
+                <label>Subtask Name<input id="subTitle'.$taskid.'" type="text" onkeypress="enterCheckInput(event,this)"></label>
                 </div></form>
                 </div>
                 <div class="row">

@@ -183,3 +183,14 @@ function projectDone(projectId){
     });
 
 }
+
+
+// This function is called from the new subtask Modal
+// It checks if the user presses enter and than calls the add subtask function
+//Additional this (or a variation can also be called from the add task or project modals)
+function enterCheckInput(e,field){
+    if(e.keyCode==13){
+        let task=field.id.substr(8);
+        addSub(task);
+    }
+}
